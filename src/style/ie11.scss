@@ -1,0 +1,29 @@
+@mixin msGridColumns($items, $rows: 0){
+    @if($rows == 0){
+        @for $i from 1 through $items {
+            &>*:nth-child(#{$i}){
+                -ms-grid-column: #{$i};
+                grid-column: #{$i};
+            }
+        }
+    } @else {
+        $col: 1;
+        $row: 1;
+
+        @for $i from 1 through $items {
+            &>*:nth-child(#{$i}){
+
+                @if($col > ($items / $rows)){
+                    $col: 1;
+                    $row: $row + 1;
+                }
+                -ms-grid-column: #{$col};
+                grid-column: #{$col};
+                -ms-grid-row: #{$row};
+                grid-row: #{$row};
+                $col: $col + 1;
+            }
+        }
+    }
+}
+
